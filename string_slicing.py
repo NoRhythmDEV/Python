@@ -8,5 +8,8 @@ substring_lastname = name[4::1] #Spaces will be ignored.
                                 #Aslong as you have a starting point and the colon (:) it will count from the starting point until the end
                                 #Step is optional. Default is 1
 
+reversed_name = name[::-1] #-1 in Step is like reversing the string
+
 print(substring_firstname)
 print(substring_lastname)
+print(reversed_name)
