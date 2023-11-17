@@ -13,3 +13,12 @@ reversed_name = name[::-1] #-1 in Step is like reversing the string
 print(substring_firstname)
 print(substring_lastname)
 print(reversed_name)
+
+
+#slicing()
+
+website = "https://google.de"
+
+slice = slice(8,-3)
+
+print(website[slice])
