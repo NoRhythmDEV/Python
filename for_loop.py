@@ -1,5 +1,6 @@
-#for loop will repeat code aslong as the condition is true
+import time
 
+#for loop will repeat code aslong as the condition is true
 #for loop = limited
 #while loop = unlimited
 
@@ -31,3 +32,10 @@ print("end of loop 5")
 #this will print out each lette in the string
 for i in "test":
     print(i)
+print("end of loop 6")
+
+#for loop with timer
+for i in range(10,0,-1):
+    print(i)
+    time.sleep(1)
+print("you waited 10 seconds. Congrats")
