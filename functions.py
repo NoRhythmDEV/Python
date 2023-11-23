@@ -1,11 +1,9 @@
 #functions = a block of code that will only be called when its called
 
 
-def hello(name):
-    print("Hello " + name)
+def hello(firstname,lastname):
+    print("Hello " + firstname + " " + lastname)
 
 
-hello(
-    "Peter"
-)
+hello("Max","Mustermann")
  
