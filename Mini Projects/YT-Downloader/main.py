@@ -16,7 +16,7 @@ def startDownload_highres():
         ytLink = link.get()
         ytObject = YouTube(ytLink)
         video_highRes = ytObject.streams.get_highest_resolution()
-        video_highRes.download()
+        video_highRes.download() 
         finishLabel.configure(text="Download Complete")
     except:
         errorMessage.configure(text="Invalid Link")
@@ -42,7 +42,7 @@ app.title("YouTube Downloader")
 # ------------------------------------------------- UI Elements -------------------------------------------------
 
 # Title
-title = customtkinter.CTkLabel(app, text="Insert YouTube Link")
+title = customtkinter.CTkLabel(app, text="Video: ")
 title.pack()
 
 # Link Input
