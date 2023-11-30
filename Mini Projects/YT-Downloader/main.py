@@ -69,36 +69,39 @@ app.geometry("1280x720")
 app.title("YouTube Downloader")
 
 # ------------------------------------------------- UI Elements -------------------------------------------------
+# Title
+title = customtkinter.CTkLabel(app, text="Download any YouTube Video - Insert link Below")
+title.pack(pady=10,padx=10)
 
 # Link Input
 url_var = tkinter.StringVar()
 link = customtkinter.CTkEntry(app, width=350, height=40, textvariable=url_var)
-link.pack()
+link.pack(padx=10,pady=10)
 
 # Button high_res
 download_button_highRes = customtkinter.CTkButton(app, text="Download Video", command=startDownload,width=200,height=40)
-download_button_highRes.pack(padx=10,pady=10)
+download_button_highRes.pack(padx=10,pady=10,)
 
 # Progress
 pPercantage = customtkinter.CTkLabel(app, text="0%")
-pPercantage.pack()
+pPercantage.pack(padx=5,pady=5)
 
 pBar = customtkinter.CTkProgressBar(app, width=400)
 pBar.set(0)
-pBar.pack()
+pBar.pack(padx=5,pady=5)
 
 # Title Display
 titleDisplay = customtkinter.CTkLabel(app, text="", font=("Helvetica",18))
-titleDisplay.pack()
+titleDisplay.pack(padx=5,pady=5)
 
 # Thumbnail Display
 placeholder_image = ImageTk.PhotoImage(Image.new("RGB", (0, 0), "white"))
 thumbnailDisplay = customtkinter.CTkLabel(app, text="", image=placeholder_image, width=400, height=225)
-thumbnailDisplay.pack()
+thumbnailDisplay.pack(padx=5,pady=5)
 
 # Finished Downloading
 successMessage = customtkinter.CTkLabel(app,text="",text_color="green",font=("Helvetica",25))
-successMessage.pack()
+successMessage.pack(padx=5,pady=5)
 
 # Error Message if link Invalid
 errorMessage = customtkinter.CTkLabel(app, text="", text_color="red",font=("Helvetica",25))
