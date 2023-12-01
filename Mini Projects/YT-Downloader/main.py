@@ -4,6 +4,9 @@ from pytube import YouTube
 from PIL import Image, ImageTk, ImageFilter
 from urllib.request import urlopen
 import requests
+import os
+from tkinter import filedialog
+
 
 # Functions
 
@@ -19,11 +22,20 @@ def hideThumbail():
 def hideTitle():
     titleDisplay.configure(text="")
 
+# Test Video https://www.youtube.com/watch?v=PP7yRXdHAT0
+
 def startDownload():
     global url
+
     try:
         ytLink = link.get()
         ytObject = YouTube(ytLink, on_progress_callback=on_progress)
+
+        # Ask the user to choose the download directory
+        path_to_download = filedialog.askdirectory()
+
+        if not path_to_download:  # If the user cancels the file dialog
+            return
 
         url = str(ytObject.thumbnail_url)
         response = requests.get(url, stream=True)
@@ -35,9 +47,9 @@ def startDownload():
         thumbnailDisplay.configure(image=thumbnail_image, width=400, height=225)
 
         video_highRes = ytObject.streams.get_highest_resolution()
-        video_highRes.download()
+        video_highRes.download(path_to_download)
 
-        successMessage.configure(text="Download Complete")
+        successMessage.configure(text=f"Download Complete\nFile is Saved in {path_to_download}")
 
         # Remove Titles and Displays
         app.after(5000, hideSuccessMessage)
