@@ -1,6 +1,6 @@
 import tkinter
 import customtkinter
-from pytube import YouTube
+from pytube import YouTube, Playlist
 from PIL import Image, ImageTk, ImageFilter
 from urllib.request import urlopen
 import requests
@@ -33,7 +33,7 @@ def startDownloadVideo():
 
         # Ask the user to choose the download directory
         path_to_download = filedialog.askdirectory()
-        path_to_download = path_to_download+"/Video"
+        path_to_download = path_to_download+"/YT-Downloader"+"/Video"
 
         if not path_to_download:  # If the user cancels the file dialog
             return
@@ -69,7 +69,7 @@ def startDownloadAudio():
 
         # Ask the user to choose the download directory
         path_to_download = filedialog.askdirectory()
-        path_to_download = path_to_download+"/Audio"
+        path_to_download = path_to_download+"/YT-Downloader"+"/Audio"
 
         if not path_to_download:  # If the user cancels the file dialog
             return
@@ -102,7 +102,57 @@ def startDownloadAudio():
         errorMessage.configure(text="Invalid Link")
         app.after(5000, hideErrorMessage)
 
+def startDownloadPlaylistVideo():
+    try:
+       ytLink = link.get()
+       ytPlaylistObject = Playlist(ytLink)
+       # Ask the user to choose the download directory
+       path_to_download = filedialog.askdirectory()
+       path_to_download = path_to_download+"/YT-Downloader"+"/Playlists"+"/Video"+f"/{ytPlaylistObject.title}"
 
+       titleDisplay.configure(text=f"Downloading Playlist: {ytPlaylistObject.title}")
+
+       successMessage.configure(text="Download complete")
+
+       for video in ytPlaylistObject.videos:
+            video.streams.get_highest_resolution().download(path_to_download)
+
+       app.after(5000,hideSuccessMessage)
+       app.after(5000,hideTitle)
+    except Exception as e:
+        print(e)
+        errorMessage.configure(text="Please provide a Playlist link")
+        app.after(5000, hideErrorMessage)
+
+def startDownloadPlaylistAudio():
+    try:
+       ytLink = link.get()
+       ytPlaylistObject = Playlist(ytLink)
+       # Ask the user to choose the download directory
+       path_to_download = filedialog.askdirectory()
+       path_to_download = path_to_download+"/YT-Downloader"+"/Playlists"+"/Audio"+f"/{ytPlaylistObject.title}"
+
+       titleDisplay.configure(text=f"Downloading Playlist: {ytPlaylistObject.title}")
+
+       for video in ytPlaylistObject.videos:
+            # Download the video as mp4
+            video.streams.get_highest_resolution().download(path_to_download)
+            # Get the filename of the downloaded video
+            filename = video.streams.get_audio_only().default_filename
+            # Convert the mp4 file to mp3 using AudioFileClip
+            convert_Audio_file = AudioFileClip(path_to_download + "/" + filename)
+            convert_Audio_file.write_audiofile(path_to_download+"/"+filename[:-4]+".mp3")
+            convert_Audio_file.close()
+            # Delete the mp4 file
+            os.remove(path_to_download+"/"+filename)
+
+       successMessage.configure(text="Download complete")
+       app.after(5000,hideSuccessMessage)
+       app.after(5000,hideTitle)
+    except Exception as e:
+        print(e)
+        errorMessage.configure(text="Please provide a Playlist link")
+        app.after(5000, hideErrorMessage)
 
 def on_progress(stream, chunk, bytes_remaining):
     total_size = stream.filesize
@@ -125,12 +175,13 @@ app.geometry("1280x720")
 app.minsize(1280,720)
 app.resizable(0, 0)
 
-app.title("YouTube Downloader")
+app.title("YouTube Downloader v1.0.8")
 
-# ------------------------------------------------- UI Elements -------------------------------------------------
+# ------------------------------------------------- UI Elements ------------------------------------------------- #
 # Title
-title = customtkinter.CTkLabel(app, text="Download any YouTube Video - Insert link Below")
-title.grid(row=0, column=0, columnspan=4, pady=(30, 10), padx=10)
+title = customtkinter.CTkLabel(app, text="Download any YouTube Video - Insert link Below",font=("Helvetica",25) )
+title.grid(row=0, column=0, columnspan=4, pady=(50, 10), padx=10)
+
 
 # Link Input
 url_var = tkinter.StringVar()
@@ -145,11 +196,19 @@ download_button_Video.grid(row=2, column=1, columnspan=1, pady=10)
 download_button_Audio = customtkinter.CTkButton(app, text="Download Audio", command=startDownloadAudio,width=200,height=40)
 download_button_Audio.grid(row=2, column=2, columnspan=1, pady=10)
 
+# Button Playlist Video
+download_button_Playlist = customtkinter.CTkButton(app, text="Download Playlist (Video)", command=startDownloadPlaylistVideo,width=200,height=40)
+download_button_Playlist.grid(row=3,column=1, columnspan=1, pady=10)
+
+# Button Playlist Audio
+download_button_Playlist = customtkinter.CTkButton(app, text="Download Playlist (Audio)", command=startDownloadPlaylistAudio,width=200,height=40)
+download_button_Playlist.grid(row=3,column=2, columnspan=1, pady=10)
+
 # Progress
-pPercantage = customtkinter.CTkLabel(app, text="0%")
+pPercantage = customtkinter.CTkLabel(app, text="0%",)
 pPercantage.grid(row=3, column=0, columnspan=4, padx=5, pady=5)
 
-pBar = customtkinter.CTkProgressBar(app, width=400)
+pBar = customtkinter.CTkProgressBar(app, width=400, height=20)
 pBar.set(0)
 pBar.grid(row=4, column=0, columnspan=4, padx=5, pady=5)
 
@@ -163,11 +222,11 @@ thumbnailDisplay = customtkinter.CTkLabel(app, text="", image=placeholder_image,
 thumbnailDisplay.grid(row=6, column=0, columnspan=4, padx=5, pady=5)
 
 # Finished Downloading
-successMessage = customtkinter.CTkLabel(app,text="",text_color="green",font=("Helvetica",25))
+successMessage = customtkinter.CTkLabel(app,text="",text_color="green",font=("Helvetica",18))
 successMessage.grid(row=7, column=0, columnspan=4, padx=5, pady=5)
 
-# Error Message if link Invalid
-errorMessage = customtkinter.CTkLabel(app, text="", text_color="red",font=("Helvetica",25))
+# Error Message
+errorMessage = customtkinter.CTkLabel(app, text="", text_color="red",font=("Helvetica",18))
 errorMessage.grid(row=8, column=0, columnspan=4)
 
 # Configure the grid
