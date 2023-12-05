@@ -5,4 +5,4 @@ customtkinter==5.2.1
 -e c:\python311\lib\site-packages\moviepy-1.0.3-py3.11.egg-info
 Pillow==10.1.0
 pytube==15.0.0
-requests==2.31.0
+Requests==2.31.0
