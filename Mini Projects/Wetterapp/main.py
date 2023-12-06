@@ -5,6 +5,7 @@ import ttkbootstrap as tkb
 from ttkbootstrap.constants import *
 import requests
 from PIL import Image, ImageTk
+import os
 
 # Functions
 def get_weather(city):
@@ -111,6 +112,11 @@ app.resizable(0, 0)
 app.title("Wetterapp v0.1")
 app.place_window_center()
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+icon_path = os.path.join(script_dir, "icon.ico")
+icon_image = Image.open(icon_path)
+photo_image = ImageTk.PhotoImage(icon_image)
+app.wm_iconphoto(True, photo_image)
 
 # components
 search_label = tkb.Label(app, text="Enter your City",font=("Helvetica",12))
