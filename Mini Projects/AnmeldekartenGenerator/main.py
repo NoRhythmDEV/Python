@@ -5,6 +5,7 @@ from barcode.writer import ImageWriter
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import os
+from ttkbootstrap.toast import ToastNotification
 
 # Functions
 def barcodegen_code_128():
@@ -38,6 +39,7 @@ def barcodegen_code_128():
     os.remove("username.png")
     
     c.save()
+    toast_done.show_toast()
 
 # App Window
 app = tkb.Window(themename="darkly")
@@ -57,11 +59,19 @@ password_label = tkb.Label(app, text="Passwort hier", font=("Arial", 14))
 password_label.grid(row=2, column=1, columnspan=1, pady=15)
 
 password_var = tk.StringVar()
-entry_password = tkb.Entry(app, width=40, textvariable=password_var)
+entry_password = tkb.Entry(app, width=40, show="●", textvariable=password_var)
 entry_password.grid(row=3, column=1, columnspan=1, pady=15)
 
 gen_button = tkb.Button(app, text="Generieren", width=40, command=barcodegen_code_128)
 gen_button.grid(row=4, column=1, columnspan=1, pady=(85,0))
+
+# Toast Notification
+toast_done = ToastNotification(
+    title=f"Succesfully created File",
+    message=f"The PDF is saved in the same folder as the Programm",
+    duration=3000,
+    bootstyle="darkly"
+)
 
 app.rowconfigure(0)
 app.rowconfigure(1)
