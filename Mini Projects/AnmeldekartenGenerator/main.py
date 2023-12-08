@@ -49,18 +49,18 @@ app.resizable(0, 0)
 app.position_center()
 
 username_label = tkb.Label(app, text="Nutzername hier", font=("Arial", 14))
-username_label.grid(row=0, column=1, columnspan=1, pady=(85, 15))
+username_label.grid(row=0, column=1, columnspan=1, pady=(85, 7))
 
 username_var = tk.StringVar()
 entry_username = tkb.Entry(app, width=40, textvariable=username_var)
-entry_username.grid(row=1, column=1, columnspan=1, pady=15)
+entry_username.grid(row=1, column=1, columnspan=1, pady=7)
 
 password_label = tkb.Label(app, text="Passwort hier", font=("Arial", 14))
-password_label.grid(row=2, column=1, columnspan=1, pady=15)
+password_label.grid(row=2, column=1, columnspan=1, pady=7)
 
 password_var = tk.StringVar()
-entry_password = tkb.Entry(app, width=40, show="●", textvariable=password_var)
-entry_password.grid(row=3, column=1, columnspan=1, pady=15)
+entry_password = tkb.Entry(app, width=40, textvariable=password_var)
+entry_password.grid(row=3, column=1, columnspan=1, pady=7)
 
 gen_button = tkb.Button(app, text="Generieren", width=40, command=barcodegen_code_128)
 gen_button.grid(row=4, column=1, columnspan=1, pady=(85,0))
