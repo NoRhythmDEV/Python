@@ -11,7 +11,7 @@ def barcodegen_code_128():
     username = entry_username.get()
     password = entry_password.get()
 
-    # Generate Code 128 barcode for username
+    # Generate Code 128 barcode for username (wihtout text)
     code_username = Code128(username, writer=ImageWriter())
     code_username.save("username", options={"write_text":False})
 
@@ -20,7 +20,8 @@ def barcodegen_code_128():
     code_password.save("password", options={"write_text":False})
 
     # Create a PDF file and embed the barcode images
-    pdf_filename = f"Anmeldekarte {username}.pdf"
+    script_path = os.path.dirname(os.path.abspath(__file__))
+    pdf_filename = os.path.join(script_path, f"Anmeldekarte {username}.pdf")
     c = canvas.Canvas(pdf_filename, pagesize=letter)
 
     barcode_width = 200
@@ -35,7 +36,7 @@ def barcodegen_code_128():
     
     os.remove("password.png")
     os.remove("username.png")
-
+    
     c.save()
 
 # App Window
