@@ -43,7 +43,7 @@ def barcodegen_code_128():
 
 # App Window
 app = tkb.Window(themename="darkly")
-app.title("Anmeldekarten Generator")
+app.title("Anmeldekarten Generator | v1.0")
 app.geometry("400x500")
 app.resizable(0, 0)
 app.position_center()
