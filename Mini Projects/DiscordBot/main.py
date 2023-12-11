@@ -13,17 +13,14 @@ class KafkaBot(discord.Client):
 
 
     async def on_message(self, message):
+        if message.author == client.user:
+            return
+
         if message.content.startswith('!cat'):
-            # Pexels API endpoint for cat photos
+
             api_url = 'https://api.pexels.com/v1/search'
-            
-            # Set up headers with the Pexels API key
             headers = {'Authorization': PEXELS_API_KEY}
-            
-            # Parameters for the Pexels API request
             params = {'query': 'cat', 'per_page': 50}  # You can adjust per_page as needed
-            
-            # Make the request to the Pexels API
             response = requests.get(api_url, headers=headers, params=params)
             
             # Check if the request was successful
@@ -53,7 +50,10 @@ class KafkaBot(discord.Client):
             embed.set_image(url=horny_url)
             
             # Send the message with the embed
-            await message.channel.send(embed=embed)            
+            await message.channel.send(embed=embed)      
+
+        elif message.content.startswith("!help"):
+            await message.channel.send("Hello Im Kafka\n\nYou can use 2 Commands right now\n!cat to generate a random Image of a Cat\n!booba to well get booba ( ͡° ͜ʖ ͡°)")      
 
 intents = discord.Intents.all()
 intents.messages = True 
