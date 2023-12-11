@@ -1,14 +1,9 @@
-#bot token MTE4Mzc0OTA2MDE2MzgwMTE1OA.G0dIVi.TIvj09QRZWCj29JHu1hkfOyB0eE32D7jSYMRMA
-#bot url https://discord.com/api/oauth2/authorize?client_id=1183749060163801158&permissions=8&scope=bot+applications.commands
-# pexels api key: u3jJFSNNDqaXji6TYPMTKzAoZY9GYRoVsGU2fFcESedCpvqRlqpzBSY5
-
 import discord
 import random
 import requests
-from bs4 import BeautifulSoup
-import os
 
-PEXELS_API_KEY = "u3jJFSNNDqaXji6TYPMTKzAoZY9GYRoVsGU2fFcESedCpvqRlqpzBSY5"
+DISCORD_BOT_TOKEN = ""
+PEXELS_API_KEY = ""
 
 class KafkaBot(discord.Client):
     async def on_ready(self):
@@ -64,5 +59,5 @@ intents = discord.Intents.all()
 intents.messages = True 
 
 client = KafkaBot(intents=intents)
-client.run('MTE4Mzc0OTA2MDE2MzgwMTE1OA.G0dIVi.TIvj09QRZWCj29JHu1hkfOyB0eE32D7jSYMRMA')
+client.run(DISCORD_BOT_TOKEN)
 
