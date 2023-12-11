@@ -73,7 +73,7 @@ password_var = tk.StringVar()
 entry_password = tkb.Entry(app, width=40,justify="center", textvariable=password_var)
 entry_password.grid(row=3, column=1, columnspan=1, pady=7)
 
-gen_button = tkb.Button(app, text="Generieren", width=40, command=barcodegen_code_128)
+gen_button = tkb.Button(app, text="Generieren", width=40, command=barcodegen_code_128, style="primary.TButton")
 gen_button.grid(row=4, column=1, columnspan=1, pady=(85,0))
 
 # Toast Notification
@@ -92,3 +92,5 @@ app.rowconfigure(4)
 app.columnconfigure(1, weight=1)
 
 app.mainloop()
+
+
