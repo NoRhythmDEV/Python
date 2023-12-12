@@ -6,7 +6,7 @@ neg_pi = -math.pi
 list = [3,1,6,23,14,4.5]
 
 #rounding
-print(round(pi)) #rounds to the nearest full int (built in)
+print(round(pi, 2)) #rounds to the nearest full int (built in) with second input round to the given decimal place
 print(math.ceil(pi)) #rounds up to nearest int (math module)
 print(math.floor(pi)) #rounds down to nearest int(math module)
 
