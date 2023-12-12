@@ -1,0 +1,8 @@
+Frank;Meyer;Radolfzell;07732/43452
+Peter;Rabe;Konstanz;07531/70021
+Otmar;Huber;Rosenheim;08031/7877-0
+Anna;Rabe;Radolfzell;07732/2343
+Oskar;Lindner;Konstanz;07531/890
+Anna;List;München;089/3434544
+Franziska;Huber;Rosenheim;08031/787878
+Sarah;Rabe;Konstanz;07531/343454
