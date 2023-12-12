@@ -16,7 +16,6 @@ def get_weather(city):
     if result.status_code == 404:
         messagebox.showerror("Error", "City not found")
         return None
-    
 
     weather = result.json()
     icon_id = weather["weather"][0]["icon"]
@@ -84,7 +83,6 @@ def search():
     lon_label.config(text=f"Longitude: {longitude}")
     lat_label.config(text=f"Latitude: {latitude}")
 
-
 def clear():
     placeholder_image = ImageTk.PhotoImage(Image.new("RGBA", (1, 1), (0, 0, 0, 0)))
 
@@ -102,7 +100,6 @@ def clear():
     lon_label.config(text="")
     lat_label.config(text="")
     wind_direction_label.config(text="")
-
 
 # Frame
 app = tkb.Window(themename="darkly")
@@ -166,7 +163,6 @@ lon_label.grid(row=5,column=2,columnspan=2,pady=(5,0))
 
 lat_label = tkb.Label(app, text="" ,font=("Helvetica",12))
 lat_label.grid(row=6,column=2,columnspan=2,pady=(5,0))
-
 
 # grid config
 app.columnconfigure(0)
