@@ -106,8 +106,8 @@ def clear():
 
 # Frame
 app = tkb.Window(themename="darkly")
-app.geometry("1050x600")
-app.minsize(1050, 600)
+app.geometry("1280x720")
+app.minsize(1280, 720)
 app.resizable(0, 0)
 app.title("Wetterapp v0.1")
 app.place_window_center()
