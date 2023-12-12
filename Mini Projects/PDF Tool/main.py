@@ -3,7 +3,6 @@ from tkinter import messagebox, filedialog
 import ttkbootstrap as tkb
 import os
 from PyPDF2 import *
-import sys
 
 # Functions
 
