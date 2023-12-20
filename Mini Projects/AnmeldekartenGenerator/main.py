@@ -7,31 +7,28 @@ from reportlab.pdfgen import canvas
 import os
 from ttkbootstrap.toast import ToastNotification
 from tkinter import messagebox
-import random
 import string
 
-
-def random_password():
-    chars = string.ascii_letters + string.digits + string.punctuation
-    password = ""
-    for i in range(12):
-        password += random.choice(chars)
-    return password
-
 # Functions
-def contains_special_chars(text):
-    special_chars = ["ä","ü","ö","Ä","Ö","Ü"]
-    return any(char in text for char in special_chars)
+def find_illegal_chars(text):
+    chars = set(string.ascii_letters + string.digits + string.punctuation)
+    illegal_chars = set(char for char in text if char not in chars)
+    return illegal_chars if illegal_chars else None
 
 def barcodegen_code_128():
     username = entry_username.get()
     password = entry_password.get()
 
-    if contains_special_chars(username):
-        messagebox.showerror("ERROR","Im Namen darf kein ä, ü, ö, Ä, Ü oder Ö sein!\n\nDa diese nicht in einem Code-128 Barcode enhalten sein können.")
+    illegal_chars_username = find_illegal_chars(username)
+    if illegal_chars_username:
+        illegal_chars_str = ', '.join(f"'{char}'" for char in illegal_chars_username)
+        messagebox.showerror("ERROR", f"Folgende zeichen: {illegal_chars_str} können nicht in einem Code-128 Barcode enthalten sein!\n\nEntferne diese bitte aus dem Nutzernamen!\nDu kannst ö z.B. mit oe ersätzen.")
         return
-    if contains_special_chars(password):
-        messagebox.showerror("ERROR","Im Passwort darf kein ä, ü, ö, Ä, Ü oder Ö sein!\n\nDa diese nicht in einem Code-128 Barcode enhalten sein können.")        
+
+    illegal_chars_password = find_illegal_chars(password)
+    if illegal_chars_password:
+        illegal_chars_str = ', '.join(f"'{char}'" for char in illegal_chars_password)
+        messagebox.showerror("ERROR", f"Folgende zeichen: {illegal_chars_str} können nicht in einem Code-128 Barcode enthalten sein!\n\nEntferne diese bitte aus dem Passwort!\nDu kannst ö z.B. mit oe ersätzen.")
         return
 
     # Generate Code 128 barcode for username
@@ -64,7 +61,7 @@ def barcodegen_code_128():
 
 # App Window
 app = tkb.Window(themename="darkly")
-app.title("Anmeldekarten Generator | v1.0")
+app.title("Anmeldekarten Generator | v1.5")
 app.geometry("400x500")
 app.resizable(0, 0)
 app.position_center()
@@ -80,14 +77,11 @@ password_label = tkb.Label(app, text="Passwort", font=("Arial", 14))
 password_label.grid(row=2, column=1, columnspan=1, pady=7)
 
 password_var = tk.StringVar()
-entry_password = tkb.Entry(app, width=40,justify="center", textvariable=password_var, state="readonly")
+entry_password = tkb.Entry(app, width=40,justify="center", textvariable=password_var)
 entry_password.grid(row=3, column=1, columnspan=1, pady=7)
 
-gen_pass_button = tkb.Button(app, text="Passwort generieren", width=40, command=lambda: password_var.set(random_password()), style="primary.TButton")
-gen_pass_button.grid(row=4, column=1, columnspan=1, pady=(60,0))
-
 gen_button = tkb.Button(app, text="PDF generieren", width=40, command=barcodegen_code_128, style="primary.TButton")
-gen_button.grid(row=5, column=1, columnspan=1, pady=(15,0))
+gen_button.grid(row=4, column=1, columnspan=1, pady=(65,0))
 
 # Toast Notification
 toast_done = ToastNotification(
@@ -102,7 +96,6 @@ app.rowconfigure(1)
 app.rowconfigure(2)
 app.rowconfigure(3)
 app.rowconfigure(4)
-app.rowconfigure(5)
 app.columnconfigure(1, weight=1)
 
 
