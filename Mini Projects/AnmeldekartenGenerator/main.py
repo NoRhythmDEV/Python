@@ -69,18 +69,18 @@ app.geometry("400x500")
 app.resizable(0, 0)
 app.position_center()
 
-username_label = tkb.Label(app, text="Nutzername hier", font=("Arial", 14))
+username_label = tkb.Label(app, text="Nutzername", font=("Arial", 14))
 username_label.grid(row=0, column=1, columnspan=1, pady=(85, 7))
 
 username_var = tk.StringVar()
 entry_username = tkb.Entry(app, width=40, justify="center", textvariable=username_var)
 entry_username.grid(row=1, column=1, columnspan=1, pady=7)
 
-password_label = tkb.Label(app, text="Passwort hier", font=("Arial", 14))
+password_label = tkb.Label(app, text="Passwort", font=("Arial", 14))
 password_label.grid(row=2, column=1, columnspan=1, pady=7)
 
 password_var = tk.StringVar()
-entry_password = tkb.Entry(app, width=40,justify="center", textvariable=password_var)
+entry_password = tkb.Entry(app, width=40,justify="center", textvariable=password_var, state="readonly")
 entry_password.grid(row=3, column=1, columnspan=1, pady=7)
 
 gen_pass_button = tkb.Button(app, text="Passwort generieren", width=40, command=lambda: password_var.set(random_password()), style="primary.TButton")
