@@ -1,0 +1,25 @@
+{
+    "words": [
+        {
+            "word": "apple",
+            "examples": [
+                "I ate an apple.",
+                "The apple is red."
+            ]
+        },
+        {
+            "word": "banana",
+            "examples": [
+                "I like to eat bananas.",
+                "The banana is ripe."
+            ]
+        },
+        {
+            "word": "orange",
+            "examples": [
+                "She peeled the orange.",
+                "The orange is juicy."
+            ]
+        }
+    ]
+}
