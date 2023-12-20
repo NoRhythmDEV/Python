@@ -8,12 +8,13 @@ import os
 from ttkbootstrap.toast import ToastNotification
 from tkinter import messagebox
 import random
+import string
 
 
 def random_password():
-    chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!§$%&/()=?{[]}+-*#"
+    chars = string.ascii_letters + string.digits + string.punctuation
     password = ""
-    for i in range(8):
+    for i in range(12):
         password += random.choice(chars)
     return password
 
