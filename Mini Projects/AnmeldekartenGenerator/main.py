@@ -7,6 +7,15 @@ from reportlab.pdfgen import canvas
 import os
 from ttkbootstrap.toast import ToastNotification
 from tkinter import messagebox
+import random
+
+
+def random_password():
+    chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!§$%&/()=?{[]}+-*#"
+    password = ""
+    for i in range(8):
+        password += random.choice(chars)
+    return password
 
 # Functions
 def contains_special_chars(text):
@@ -73,8 +82,11 @@ password_var = tk.StringVar()
 entry_password = tkb.Entry(app, width=40,justify="center", textvariable=password_var)
 entry_password.grid(row=3, column=1, columnspan=1, pady=7)
 
-gen_button = tkb.Button(app, text="Generieren", width=40, command=barcodegen_code_128, style="primary.TButton")
-gen_button.grid(row=4, column=1, columnspan=1, pady=(85,0))
+gen_pass_button = tkb.Button(app, text="Passwort generieren", width=40, command=lambda: password_var.set(random_password()), style="primary.TButton")
+gen_pass_button.grid(row=4, column=1, columnspan=1, pady=(60,0))
+
+gen_button = tkb.Button(app, text="PDF generieren", width=40, command=barcodegen_code_128, style="primary.TButton")
+gen_button.grid(row=5, column=1, columnspan=1, pady=(15,0))
 
 # Toast Notification
 toast_done = ToastNotification(
@@ -89,7 +101,9 @@ app.rowconfigure(1)
 app.rowconfigure(2)
 app.rowconfigure(3)
 app.rowconfigure(4)
+app.rowconfigure(5)
 app.columnconfigure(1, weight=1)
+
 
 app.mainloop()
 
